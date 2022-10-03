@@ -28,6 +28,15 @@ class Parser extends Command
      */
     public function handle()
     {
-        return Command::SUCCESS;
+        $html = file_get_contents('https://ru.wikipedia.org/wiki/Заглавная_страница');
+
+        // Create new instance for parser.
+        $crawler = new Crawler(null, 'https://ru.wikipedia.org/wiki/Заглавная_страница');
+        $crawler->addHtmlContent($html, 'UTF-8');
+
+        var_dump($crawler->filterXPath('//*[@id="main-tfa"]/p[1]')->text());
+
+
+
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +14,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::resource('Category', CategoryController::class)->names([
+    'index' => 'catIndex',
+    'create' => 'catCreate',
+    'store' => 'catStore',
+    'show' => 'catShow',
+    'edit' => 'catEdit',
+    'update' => 'catUpdate',
+    'destroy' => 'catDestroy'
+]);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
+
+Route::post('/Parse', [MainController::class, 'parse'])->name('parse');
