@@ -3,16 +3,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Рекомендуемые</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Цена</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Отключенная</a>
+                    <a class="nav-link" aria-current="page" href="{{ route('Category.index') }}">Categories</a>
                 </li>
             </ul>
         </div>

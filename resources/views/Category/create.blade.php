@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('catStore') }}" method="post">
+    <form action="{{ route('Category.store') }}" method="post">
         @csrf
         <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">category</span>

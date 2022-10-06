@@ -13,7 +13,7 @@
                     <h1>All the category</h1>
                 </div>
                 <div class="col text-end">
-                    <a class="btn btn-success" href="{{ route('catCreate') }}">Add category</a>
+                    <a class="btn btn-success" href="{{ route('Category.create') }}">Add category</a>
                 </div>
             </div>
         </div>
@@ -43,8 +43,13 @@
                     <td>{{ $value->created_at }}</td>
                     <td>{{ $value->updated_at }}</td>
                     <td class="text-center">
-                        <a class="btn btn-small btn-success" href="{{ URL::to('category/' . $value->id) }}">Show</a>
-                        <a class="btn btn-small btn-info" href="{{ URL::to('category/' . $value->id . '/edit') }}">Edit</a>
+                        @method('delete')
+                        <a class="btn btn-small btn-success" href="{{ route('Category.edit', ['Category' => $value->id])}}">Edit</a>
+                        <form method="post" action="{{ route('Category.destroy', ['Category' => $value->id])}}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-small btn-info">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

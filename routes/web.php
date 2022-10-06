@@ -14,15 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('Category', CategoryController::class)->names([
-    'index' => 'catIndex',
-    'create' => 'catCreate',
-    'store' => 'catStore',
-    'show' => 'catShow',
-    'edit' => 'catEdit',
-    'update' => 'catUpdate',
-    'destroy' => 'catDestroy'
-]);
+Route::resource('Category', CategoryController::class);
 
 Route::get('/', function () {
     return view('main');
