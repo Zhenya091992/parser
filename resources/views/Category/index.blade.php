@@ -44,7 +44,8 @@
                     <td>{{ $value->updated_at }}</td>
                     <td class="text-center">
                         @method('delete')
-                        <a class="btn btn-small btn-success" href="{{ route('Category.edit', ['Category' => $value->id])}}">Edit</a>
+                        <a class="btn btn-small btn-success" href="{{ route('Category.show', ['Category' => $value->id])}}">Show</a>
+                        <a class="btn btn-small btn-warning" href="{{ route('Category.edit', ['Category' => $value->id])}}">Edit</a>
                         <form method="post" action="{{ route('Category.destroy', ['Category' => $value->id])}}">
                             @csrf
                             @method('DELETE')
