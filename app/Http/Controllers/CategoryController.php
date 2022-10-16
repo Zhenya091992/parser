@@ -43,6 +43,7 @@ class CategoryController extends Controller
         $value = $request->value;
         $category = new Category();
         $category->name_category = $request->nameCategory;
+        $category->url = $request->url;
         $category->components_category = array_combine($param, $value);
         $category->save();
 
@@ -88,6 +89,7 @@ class CategoryController extends Controller
         $value = $request->value;
         $category = Category::find($id);
         $category->name_category = $request->nameCategory;
+        $category->url = $request->url;
         $category->components_category = array_combine($param, $value);
         $category->save();
 

@@ -12,6 +12,10 @@
             <span class="input-group-text" id="inputGroup-sizing-default">category</span>
             <input type="text" class="form-control" name="nameCategory" value="{{ $category->name_category }}">
         </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">url</span>
+            <input type="text" class="form-control" name="url">
+        </div>
         @php
             $counter = 0
         @endphp

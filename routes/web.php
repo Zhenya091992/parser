@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::resource('Category', CategoryController::class);
 
-Route::get('/', function () {
-    return view('main');
-});
+Route::get('/', [MainController::class, 'index'])->name('main');
 
-Route::post('/Parse', [MainController::class, 'parse'])->name('parse');
+Route::get('Show/{id}', [MainController::class, 'show'])->name('show');
+
+Route::post('Parse', [MainController::class, 'parse'])->name('parse');
