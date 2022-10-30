@@ -4,6 +4,10 @@
     Edit category
 @endsection
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('Category.edit', $category) }}
+@endsection
+
 @section('content')
     <form action="{{ route('Category.update', ['Category' => $category->id]) }}" method="post">
         @csrf

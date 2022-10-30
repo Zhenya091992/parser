@@ -4,6 +4,10 @@
     Main
 @endsection
 
+@section('breadcrumbs')
+    @include('breadcrumbs')
+@endsection
+
 @section('content')
     @foreach($categories as $category)
         <div class="card">

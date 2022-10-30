@@ -4,6 +4,10 @@
     Create category
 @endsection
 
+@section('breadcrumbs')
+    @include('breadcrumbs')
+@endsection
+
 @section('content')
     <form action="{{ route('Category.store') }}" method="post">
         @csrf

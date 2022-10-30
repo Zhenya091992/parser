@@ -4,6 +4,10 @@
     Category
 @endsection
 
+@section('breadcrumbs')
+    @include('breadcrumbs')
+@endsection
+
 @section('content')
     <div class="container">
 

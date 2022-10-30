@@ -4,6 +4,10 @@
     Сategory {{ $category->name_category }}
 @endsection
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('Category.show', $category) }}
+@endsection
+
 @section('content')
 
     <table class="table">
