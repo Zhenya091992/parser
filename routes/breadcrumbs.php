@@ -31,3 +31,7 @@ Breadcrumbs::for('Category.create', function (BreadcrumbTrail $trail) {
     $trail->parent('Category.index');
     $trail->push('create', route('Category.create'));
 });
+
+Breadcrumbs::for('registerForm', function (BreadcrumbTrail $trail) {
+    $trail->push('Registration', route('registerForm'));
+});

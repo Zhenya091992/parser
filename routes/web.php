@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,8 @@ Route::get('/', [MainController::class, 'index'])->name('main');
 Route::get('Show/{id}', [MainController::class, 'show'])->name('show');
 
 Route::post('Parse', [MainController::class, 'parse'])->name('parse');
+
+Route::get('Register', [AuthController::class, 'registerForm'])->name('registerForm');
+
+Route::post('Register', [AuthController::class, 'registration'])->name('registration');
+
