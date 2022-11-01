@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MainController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +17,30 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('Category', CategoryController::class);
-
 Route::get('/', [MainController::class, 'index'])->name('main');
 
-Route::get('Show/{id}', [MainController::class, 'show'])->name('show');
+Route::get('Login', function() {
+    return view('Auth.login');
+})->name('loginForm');
 
-Route::post('Parse', [MainController::class, 'parse'])->name('parse');
+Route::post('Login', [AuthController::class, 'login'])->name('login');
 
-Route::get('Register', [AuthController::class, 'registerForm'])->name('registerForm');
+Route::get('Register', function() {
+    return view('Auth.register');
+})->name('registerForm');
 
 Route::post('Register', [AuthController::class, 'registration'])->name('registration');
+
+Route::middleware(Authenticate::class)->group(function() {
+    Route::get('Cabinet/{userName}', [CabinetController::class, 'index'])->name('cabinet');
+
+    Route::resource('Category', CategoryController::class);
+
+    Route::get('Show/{id}', [MainController::class, 'show'])->name('show');
+
+    Route::post('Parse', [MainController::class, 'parse'])->name('parse');
+
+    Route::get('LogOut', [AuthController::class, 'logOut'])->name('logOut');
+});
+
 

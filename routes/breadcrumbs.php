@@ -33,5 +33,16 @@ Breadcrumbs::for('Category.create', function (BreadcrumbTrail $trail) {
 });
 
 Breadcrumbs::for('registerForm', function (BreadcrumbTrail $trail) {
+    $trail->parent('main');
     $trail->push('Registration', route('registerForm'));
+});
+
+Breadcrumbs::for('loginForm', function (BreadcrumbTrail $trail) {
+    $trail->parent('main');
+    $trail->push('Sign in', route('loginForm'));
+});
+
+Breadcrumbs::for('cabinet', function (BreadcrumbTrail $trail, $userName) {
+    $trail->parent('main');
+    $trail->push('Cabinet ' . $userName, route('cabinet', $userName));
 });
