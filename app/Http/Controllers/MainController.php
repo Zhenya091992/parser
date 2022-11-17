@@ -11,9 +11,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
-
-        return view('Main.index', ['categories' => $categories]);
+        return view('Main.index');
     }
 
     public function show($id)

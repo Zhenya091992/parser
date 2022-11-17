@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HelperParser;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\View;
 
 class CategoryController extends Controller
@@ -45,6 +47,7 @@ class CategoryController extends Controller
         $category->name_category = $request->nameCategory;
         $category->url = $request->url;
         $category->components_category = array_combine($param, $value);
+        $category->user_id = Auth::user()->id;
         $category->save();
 
         return redirect(route('Category.index'));
@@ -59,8 +62,12 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::findOrFail($id);
+        $components = $category->components_category->all();
 
-        return view('Category.show', ['category' => $category]);
+        $parseData = HelperParser::run($category->url, $components);
+
+
+        return view('Category.show', ['category' => $category, 'parseData' => $parseData]);
     }
 
     /**

@@ -42,5 +42,3 @@ Route::middleware(Authenticate::class)->group(function() {
 
     Route::get('LogOut', [AuthController::class, 'logOut'])->name('logOut');
 });
-
-

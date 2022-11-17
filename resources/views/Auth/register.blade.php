@@ -69,8 +69,14 @@
                         <span id="repeatPassHelp" class="form-text">Must be 4-20 characters long.</span>
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="row">
+                    <div class="form-switch col">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="remember">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Remember me</label>
+                    </div>
+                    <div class="input-group col offset-md-6">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
             </form>
         </div>

@@ -8,8 +8,10 @@ use Faker\Factory;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -19,9 +21,12 @@ class AuthController extends Controller
             'name' => $request->nameUser,
             'email' => $request->emailUser,
             'password' => Hash::make($request->passwordUser),
+            'status' => 'wait',
         ]);
 
-        Auth::login($user);
+        $remember = $request->remember ?? false;
+
+        Auth::login($user, $remember);
 
         return redirect(route('cabinet', ['userName' => $user->name]));
     }
@@ -37,7 +42,8 @@ class AuthController extends Controller
 
         if ($user) {
             if (Hash::check($credentials['password'], $user->password)) {
-                Auth::login($user);
+                $remember = $request->remember ?? false;
+                Auth::login($user, $remember);
 
                 return redirect(route('cabinet', ['userName' => $user->name]));
             }
@@ -51,8 +57,6 @@ class AuthController extends Controller
     public function logOut(Request $request)
     {
         Auth::logout();
-
-        var_dump($request->session()->invalidate());
 
         $request->session()->regenerateToken();
 

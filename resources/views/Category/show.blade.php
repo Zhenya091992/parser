@@ -10,21 +10,24 @@
 
 @section('content')
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Param</th>
-            <th scope="col">Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($category->components_category as $param => $value)
+    <div class="shadow-lg table-responsive">
+        <table class="table">
+            <thead>
             <tr>
-                <th>{{ $param }}</th>
-                <td>{{ $value }}</td>
+                <th scope="col">Param</th>
+                <th scope="col">Value</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($parseData as $param => $value)
+                <tr>
+                    <th>{{ $param }}</th>
+                    <td>{{ $value }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
 
 @endsection
