@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Crawler\CustomCrawlObserver;
+use App\Classes\Crawler\ExtendsChildUrlCrawlProfile;
+use App\Exceptions\CustomCrawlObserverException;
 use App\Helpers\HelperParser;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use \Illuminate\Support\Facades\View;
+use Spatie\Crawler\Crawler;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $category = Category::all();
@@ -23,59 +25,54 @@ class CategoryController extends Controller
         return view('Category.index', ['category' => $category]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('Category.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $param = $request->param;
-        $value = $request->value;
-        $category = new Category();
-        $category->name_category = $request->nameCategory;
-        $category->url = $request->url;
-        $category->components_category = array_combine($param, $value);
-        $category->user_id = Auth::user()->id;
-        $category->save();
+        $validated = $request->validate([
+            'nameCategory' => 'required',
+            'url' => 'required|url',
+            'param' => 'required',
+            'value' => 'required',
+        ]);
+
+        $category = Category::make([
+            'user_id' => Auth::user()->id,
+            'name_category' => $validated['nameCategory'],
+            'url' => $validated['url'],
+            'components_category' => array_combine($validated['param'], $validated['value']),
+        ]);
+
+        ini_set('max_execution_time', 600);
+
+        try {
+            Crawler::create()
+                ->ignoreRobots()
+                ->setCrawlObserver(new CustomCrawlObserver($category))
+                ->setCrawlProfile(new ExtendsChildUrlCrawlProfile($validated['url']))
+                ->startCrawling($validated['url']);
+        } catch (CustomCrawlObserverException $err) {
+            return Redirect::back()->withErrors(['msg' => $err->getMessage()])->withInput();
+        }
+
 
         return redirect(route('Category.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-        $components = $category->components_category->all();
+        try {
+            $category = Category::findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return back()->withError($exception->getMessage())->withInput();
+        }
 
-        $parseData = HelperParser::run($category->url, $components);
-
-
-        return view('Category.show', ['category' => $category, 'parseData' => $parseData]);
+        return view('Category.show', ['category' => $category, 'data' => $category->unitData]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $category = Category::findOrFail($id);
@@ -83,13 +80,6 @@ class CategoryController extends Controller
         return view('Category.edit', ['category' => $category]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $param = $request->param;
@@ -104,12 +94,6 @@ class CategoryController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         Category::find($id)->delete();

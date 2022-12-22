@@ -2,25 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
 
-class Category extends Model
+class UnitData extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
+    protected $table = 'unit_data';
 
     protected $fillable = [
         'user_id',
-        'url',
-        'name_category',
-        'components_category',
+        'categories_id',
+        'name',
+        'value',
     ];
 
     protected $casts = [
-        'components_category' => AsCollection::class,
+        'value' => AsCollection::class,
     ];
 
     public function user()
@@ -28,8 +28,8 @@ class Category extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function unitData()
+    public function category()
     {
-        return $this->hasMany(UnitData::class, 'categories_id');
+        return $this->belongsTo(Category::class, 'categories_id');
     }
 }

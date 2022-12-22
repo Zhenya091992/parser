@@ -18,7 +18,7 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">url</span>
-            <input type="text" class="form-control" name="url">
+            <input type="text" class="form-control" name="url" value="{{ $category->url }}">
         </div>
         @php
             $counter = 0

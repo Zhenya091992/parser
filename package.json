@@ -12,6 +12,8 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "@vitejs/plugin-basic-ssl": "^0.1.2"
+        "@vitejs/plugin-basic-ssl": "^0.1.2",
+        "laravel-echo": "^1.14.2",
+        "pusher-js": "^7.5.0"
     }
 }

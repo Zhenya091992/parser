@@ -8,7 +8,11 @@
 <body>
 <div class="container">
 
-    @include('header')
+    @if(\Illuminate\Support\Facades\Auth::hasUser())
+        @include('authHeader')
+    @else
+        @include('header')
+    @endif
 
     @yield('breadcrumbs')
 

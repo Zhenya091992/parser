@@ -41,4 +41,8 @@ Route::middleware(Authenticate::class)->group(function() {
     Route::post('Parse', [MainController::class, 'parse'])->name('parse');
 
     Route::get('LogOut', [AuthController::class, 'logOut'])->name('logOut');
+
+    Route::get('Cabinet/{userName}/setup', function ($userName) {
+        return view('Cabinet.setup', ['userName' => $userName]);
+    })->name('cabinetSetup');
 });

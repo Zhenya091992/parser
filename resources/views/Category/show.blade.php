@@ -14,15 +14,19 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Param</th>
-                <th scope="col">Value</th>
+                <th scope="col">Id</th>
+                @foreach($category->components_category as $name => $value)
+                    <th scope="col">{{ $name }}</th>
+                @endforeach
             </tr>
             </thead>
             <tbody>
-            @foreach($parseData as $param => $value)
+            @foreach($data as $unit)
                 <tr>
-                    <th>{{ $param }}</th>
-                    <td>{{ $value }}</td>
+                    <th>{{ $unit->id }}</th>
+                    @foreach($unit->value as $unitName => $unitValue)
+                        <td>{{ $unitValue }}</td>
+                    @endforeach
                 </tr>
             @endforeach
             </tbody>

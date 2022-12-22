@@ -6,11 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "ext-dom": "*",
         "diglactic/laravel-breadcrumbs": "^8.0",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.5",
+        "imangazaliev/didom": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "rybachenka.yauheni/dom_document_extension": "dev-master",
+        "simplehtmldom/simplehtmldom": "^2.0@RC",
+        "spatie/crawler": "^7.1",
         "symfony/css-selector": "^6.1",
         "symfony/dom-crawler": "^6.1"
     },

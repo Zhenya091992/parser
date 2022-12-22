@@ -32,8 +32,6 @@
                 <tr>
                     <td>ID</td>
                     <td>name_category</td>
-                    <td>url</td>
-                    <td>components_category</td>
                     <td>created_at</td>
                     <td>updated_at</td>
                     <td>action</td>
@@ -44,8 +42,6 @@
                     <tr>
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->name_category }}</td>
-                        <td>{{ $value->url }}</td>
-                        <td>{{ $value->components_category }}</td>
                         <td>{{ $value->created_at }}</td>
                         <td>{{ $value->updated_at }}</td>
                         <td class="text-center">
