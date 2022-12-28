@@ -14,13 +14,32 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h1>All the category</h1>
+                    <h1>All category</h1>
                 </div>
                 <div class="col text-end">
                     <a class="btn btn-success" href="{{ route('Category.create') }}">Add category</a>
                 </div>
             </div>
         </div>
+
+        @if(!empty($errsCrawl))
+            <div class="accordion" id="accordionErrsCrawl">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed alert-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Errs crawling
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            @foreach($errsCrawl as $err)
+                                {{ $err }} <br>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
 
         @if (Session::has('message'))

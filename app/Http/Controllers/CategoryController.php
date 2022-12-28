@@ -4,16 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Classes\Crawler\CustomCrawlObserver;
 use App\Classes\Crawler\ExtendsChildUrlCrawlProfile;
-use App\Exceptions\CustomCrawlObserverException;
-use App\Helpers\HelperParser;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use \Illuminate\Support\Facades\View;
 use Spatie\Crawler\Crawler;
 
 class CategoryController extends Controller
@@ -48,18 +42,15 @@ class CategoryController extends Controller
 
         ini_set('max_execution_time', 600);
 
-        try {
-            Crawler::create()
-                ->ignoreRobots()
-                ->setCrawlObserver(new CustomCrawlObserver($category))
-                ->setCrawlProfile(new ExtendsChildUrlCrawlProfile($validated['url']))
-                ->startCrawling($validated['url']);
-        } catch (CustomCrawlObserverException $err) {
-            return Redirect::back()->withErrors(['msg' => $err->getMessage()])->withInput();
-        }
+        Crawler::create()
+            ->ignoreRobots()
+            ->setCrawlObserver(new CustomCrawlObserver($category))
+            ->setCrawlProfile(new ExtendsChildUrlCrawlProfile($validated['url']))
+            ->startCrawling($validated['url']);
 
+        $category = Category::all();
 
-        return redirect(route('Category.index'));
+        return view('Category.index', ['category' => $category]);
     }
 
     public function show($id)

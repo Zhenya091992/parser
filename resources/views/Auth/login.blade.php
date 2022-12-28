@@ -30,7 +30,7 @@
                         <label for="emailUser" class="col-form-label">Email</label>
                     </div>
                     <div class="col-6">
-                        <input name="email" type="text" id="emailUser" class="form-control" aria-describedby="emailUserHelp">
+                        <input name="email" type="text" id="emailUser" class="form-control" aria-describedby="emailUserHelp" value="{{ old('email') }}">
                     </div>
                     <div class="col">
                         <span id="emailUserHelp" class="form-text">Must be 4-20 characters long.</span>
@@ -41,7 +41,7 @@
                         <label for="passwordUser" class="col-form-label">Password</label>
                     </div>
                     <div class="col-6">
-                        <input name="password" type="text" id="passwordUser" class="form-control" aria-describedby="passwordUserHelp">
+                        <input name="password" type="password" id="passwordUser" class="form-control" aria-describedby="passwordUserHelp">
                     </div>
                     <div class="col">
                         <span id="passwordUserHelp" class="form-text">Must be 8-20 characters long.</span>
